@@ -131,27 +131,27 @@ public class CallLogPlugin implements FlutterPlugin, ActivityAware, MethodCallHa
         // }
     }
 
-    @Override
-    public boolean onRequestPermissionsResult(int requestCode, String[] strings, int[] grantResults) {
-        if (requestCode == 0) {
-            //CHECK IF ALL REQUESTED PERMISSIONS ARE GRANTED
-            // for (int grantResult : grantResults) {
-            //     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            //         return false;
-            //     }
-            // }
-            if (request != null) {
-                handleMethodCall();
-            }
-            return true;
-        } else {
-            // if (result != null) {
-            //     result.error(PERMISSION_NOT_GRANTED, null, null);
-            //     cleanup();
-            // }
-            // return false;
-        }
-    }
+    // @Override
+    // public boolean onRequestPermissionsResult(int requestCode, String[] strings, int[] grantResults) {
+    //     if (requestCode == 0) {
+    //         //CHECK IF ALL REQUESTED PERMISSIONS ARE GRANTED
+    //         // for (int grantResult : grantResults) {
+    //         //     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+    //         //         return false;
+    //         //     }
+    //         // }
+    //         if (request != null) {
+    //             handleMethodCall();
+    //         }
+    //         return true;
+    //     } else {
+    //         // if (result != null) {
+    //         //     result.error(PERMISSION_NOT_GRANTED, null, null);
+    //         //     cleanup();
+    //         // }
+    //         // return false;
+    //     }
+    // }
 
     /**
      * Handler for flutter {@link MethodCall}
