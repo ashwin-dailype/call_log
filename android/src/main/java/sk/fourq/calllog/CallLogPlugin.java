@@ -30,11 +30,11 @@ import java.util.HashMap;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.M)
-public class CallLogPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.RequestPermissionsResultListener {
+public class CallLogPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private static final String TAG = "flutter/CALL_LOG";
     private static final String ALREADY_RUNNING = "ALREADY_RUNNING";
-    private static final String PERMISSION_NOT_GRANTED = "PERMISSION_NOT_GRANTED";
+    // private static final String PERMISSION_NOT_GRANTED = "PERMISSION_NOT_GRANTED";
     private static final String INTERNAL_ERROR = "INTERNAL_ERROR";
     private static final String METHOD_GET = "get";
     private static final String METHOD_QUERY = "query";
@@ -84,7 +84,7 @@ public class CallLogPlugin implements FlutterPlugin, ActivityAware, MethodCallHa
     @Override
     public void onAttachedToActivity(@NonNull ActivityPluginBinding activityPluginBinding) {
         this.activityPluginBinding = activityPluginBinding;
-        activityPluginBinding.addRequestPermissionsResultListener(this);
+        // activityPluginBinding.addRequestPermissionsResultListener(this);
         activity = activityPluginBinding.getActivity();
         Log.d(TAG, "onAttachedToActivity");
     }
@@ -103,7 +103,7 @@ public class CallLogPlugin implements FlutterPlugin, ActivityAware, MethodCallHa
     public void onDetachedFromActivity() {
         Log.d(TAG, "onDetachedFromActivity");
         if (activityPluginBinding != null) {
-            activityPluginBinding.removeRequestPermissionsResultListener(this);
+            // activityPluginBinding.removeRequestPermissionsResultListener(this);
             activityPluginBinding = null;
             activity = null;
         }
@@ -119,37 +119,37 @@ public class CallLogPlugin implements FlutterPlugin, ActivityAware, MethodCallHa
         request = c;
         result = r;
 
-        String[] perm = {Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_PHONE_STATE};
-        if (hasPermissions(perm)) {
+        // String[] perm = {Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_PHONE_STATE};
+        // if (hasPermissions(perm)) {
             handleMethodCall();
-        } else {
-            if (activity != null) {
-                ActivityCompat.requestPermissions(activity, perm, 0);
-            } else {
-                r.error("MISSING_PERMISSIONS", "Permission READ_CALL_LOG or READ_PHONE_STATE is required for plugin. Hovewer, plugin is unable to request permission because of background execution.", null);
-            }
-        }
+        // } else {
+        //     if (activity != null) {
+        //         ActivityCompat.requestPermissions(activity, perm, 0);
+        //     } else {
+        //         r.error("MISSING_PERMISSIONS", "Permission READ_CALL_LOG or READ_PHONE_STATE is required for plugin. Hovewer, plugin is unable to request permission because of background execution.", null);
+        //     }
+        // }
     }
 
     @Override
     public boolean onRequestPermissionsResult(int requestCode, String[] strings, int[] grantResults) {
         if (requestCode == 0) {
             //CHECK IF ALL REQUESTED PERMISSIONS ARE GRANTED
-            for (int grantResult : grantResults) {
-                if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                    return false;
-                }
-            }
+            // for (int grantResult : grantResults) {
+            //     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            //         return false;
+            //     }
+            // }
             if (request != null) {
                 handleMethodCall();
             }
             return true;
         } else {
-            if (result != null) {
-                result.error(PERMISSION_NOT_GRANTED, null, null);
-                cleanup();
-            }
-            return false;
+            // if (result != null) {
+            //     result.error(PERMISSION_NOT_GRANTED, null, null);
+            //     cleanup();
+            // }
+            // return false;
         }
     }
 
@@ -255,20 +255,20 @@ public class CallLogPlugin implements FlutterPlugin, ActivityAware, MethodCallHa
         return null;
     }
 
-    /**
-     * Helper method to check if permissions were granted
-     *
-     * @param permissions Permissions to check
-     * @return false, if any permission is not granted, true otherwise
-     */
-    private boolean hasPermissions(String[] permissions) {
-        for (String perm : permissions) {
-            if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(ctx, perm)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    // /**
+    //  * Helper method to check if permissions were granted
+    //  *
+    //  * @param permissions Permissions to check
+    //  * @return false, if any permission is not granted, true otherwise
+    //  */
+    // private boolean hasPermissions(String[] permissions) {
+    //     for (String perm : permissions) {
+    //         if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(ctx, perm)) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
     /**
      * Helper method to generate new predicate
