@@ -1,3 +1,5 @@
+NOTE: This is a fork of the existing [call_log](https://pub.dev/packages/call_log) package without permission handling to allow running call log queries in background
+
 # call_log
 
 [![pub package](https://img.shields.io/pub/v/call_log.svg)](https://pub.dartlang.org/packages/call_log)
